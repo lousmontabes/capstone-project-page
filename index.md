@@ -54,7 +54,7 @@ The results of predicting at subspecies level were very satisfactory, achieving 
 
 ![image](https://user-images.githubusercontent.com/7366498/176046539-025d8a9c-1e1b-424d-ba24-cb15a324cfd5.png)![image](https://user-images.githubusercontent.com/7366498/176046744-7c5ee3b2-226b-495f-b07a-4a07fd9e9703.png)
 ![image](https://user-images.githubusercontent.com/7366498/176046757-a310e948-c443-4ef2-9341-ad522b5a3995.png)![image](https://user-images.githubusercontent.com/7366498/176046763-045e8d5f-e5ea-4f40-9a1d-c475c71f6d4b.png)
-_Confusion Matrix of each model's classification of the test set_
+_Confusion matrices of each model's predictions of subspecies of the test set_
 
 We can see that **Categorical Naive Bayes** is the only model that didn't achieve a perfect f1-score.
 
@@ -70,6 +70,11 @@ Based on the performance of the different classifiers in Section 5.1, the classi
 3. Support Vector Machine
 
 The code used in this section can be found in *Notebooks/Geolocalisation - Notebook 2.2. Modelling genomic data - SAMPLINGSITE.ipynb*
+
+![image](https://user-images.githubusercontent.com/7366498/176051160-dca7b668-797c-45f7-8dbd-f55ff3a3baf3.png)
+![image](https://user-images.githubusercontent.com/7366498/176051196-2b3a9fef-3e72-4a60-83e0-48d7a20d9bda.png)
+![image](https://user-images.githubusercontent.com/7366498/176051226-efdcd42a-b847-4d0f-8269-5085f0b5c0c5.png)
+_Confusion matrices of each model's predictions of sampling sites of the test set_
 
 #### 5.3. Geographic prediction
 
