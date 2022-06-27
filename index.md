@@ -26,10 +26,21 @@ This section includes the data processing steps for filtering the data before mo
 All data needed to replicate these results, either raw or filtered, can be found in the following [link](https://drive.google.com/drive/folders/1wroGkFZRI2MDLKRSgFWfLus0v7Kj9W94?usp=sharing).
 
 ### 5. Modelling
-The modelling section has been divided into three different subsections, each of which aimed at evaluating different approaches.
+We used our data to train supervised models on three different variables: two which where classification problems: the **subspecies** of the chimpanzee the sample was taken from and **sampling site** it was obtained from; and one regression problem: the **approximate coordinates** of the sample's origin.
 
 #### 5.1. Classification of subspecies
-This section has been aimed at implementing classifiers that can predict the subspecies of the samples. The classifiers that have been evaluated are:
+
+Considering the fact that we are working with genetic data of chimpanzees distributed accross a very large geographical range encompassing most of west and central Africa, the most obvious distinction we can hope to find in our data is the **subspecies** of chimpanzee the DNA corresponds to.
+
+We can identify four distinct subspecies:
+
+- Central
+- Eastern
+- Nigeria-Cameroon
+- Western
+
+We used the following models in this prediction:
+
 1. Random Forest
 2. Nearest Neighbor
 3. Support Vector Machine
@@ -37,8 +48,35 @@ This section has been aimed at implementing classifiers that can predict the sub
 
 The code used in this section can be found in *Notebooks/Geolocalisation - Notebook 2.1. Modelling genomic data - SUBSPECIES.ipynb*
 
+The modelling for this data is very straightforward, since we will use, in all cases, the default parameters for each model. This is because early on we found that we were obtaining very good results without the need to adjust parameters.
+
+The results of predicting at subspecies level were very satisfactory, achieving perfect classifications accross three out of the four classifiers used.
+
+![image](https://user-images.githubusercontent.com/7366498/176046539-025d8a9c-1e1b-424d-ba24-cb15a324cfd5.png)
+
+Random Forest predictions confusion matrix on testing set
+
+![image](https://user-images.githubusercontent.com/7366498/176046744-7c5ee3b2-226b-495f-b07a-4a07fd9e9703.png)
+
+Nearest Neighbors predictions confusion matrix on testing set
+
+![image](https://user-images.githubusercontent.com/7366498/176046757-a310e948-c443-4ef2-9341-ad522b5a3995.png)
+
+SVM predictions confusion matrix on testing set
+
+![image](https://user-images.githubusercontent.com/7366498/176046763-045e8d5f-e5ea-4f40-9a1d-c475c71f6d4b.png)
+
+Categorical Naive Bayes predictions confusion matrix on testing set
+
+We can see that **Categorical Naive Bayes** is the only model that didn't achieve a perfect f1-score.
+
 #### 5.2. Classification of sampling site
-In this section we have assessed the perfomance of different classifiers to predict the sampling site of the chimpanzee samples. Based on the performance of the different classifiers in Section 5.1, the classifiers that have been evaluated are:
+
+Having obtained good results at subspecies level, we will proceed to attempt to classify our samples at a higher resolution: predicting the sampling site the sample was obtained from.
+
+We have a total of 36 named sampling sites that we will serve as our labels.
+Based on the performance of the different classifiers in Section 5.1, the classifiers that have been evaluated are:
+
 1. Random Forest
 2. Nearest Neighbor
 3. Support Vector Machine
