@@ -52,21 +52,9 @@ The modelling for this data is very straightforward, since we will use, in all c
 
 The results of predicting at subspecies level were very satisfactory, achieving perfect classifications accross three out of the four classifiers used.
 
-![image](https://user-images.githubusercontent.com/7366498/176046539-025d8a9c-1e1b-424d-ba24-cb15a324cfd5.png)
-
-Random Forest predictions confusion matrix on testing set
-
-![image](https://user-images.githubusercontent.com/7366498/176046744-7c5ee3b2-226b-495f-b07a-4a07fd9e9703.png)
-
-Nearest Neighbors predictions confusion matrix on testing set
-
-![image](https://user-images.githubusercontent.com/7366498/176046757-a310e948-c443-4ef2-9341-ad522b5a3995.png)
-
-SVM predictions confusion matrix on testing set
-
-![image](https://user-images.githubusercontent.com/7366498/176046763-045e8d5f-e5ea-4f40-9a1d-c475c71f6d4b.png)
-
-Categorical Naive Bayes predictions confusion matrix on testing set
+![image](https://user-images.githubusercontent.com/7366498/176046539-025d8a9c-1e1b-424d-ba24-cb15a324cfd5.png)![image](https://user-images.githubusercontent.com/7366498/176046744-7c5ee3b2-226b-495f-b07a-4a07fd9e9703.png)
+![image](https://user-images.githubusercontent.com/7366498/176046757-a310e948-c443-4ef2-9341-ad522b5a3995.png)![image](https://user-images.githubusercontent.com/7366498/176046763-045e8d5f-e5ea-4f40-9a1d-c475c71f6d4b.png)
+_Confusion Matrix of each model's classification of the test set_
 
 We can see that **Categorical Naive Bayes** is the only model that didn't achieve a perfect f1-score.
 
