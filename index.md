@@ -31,11 +31,20 @@ To know more about what it means to work with fecal samples, please have a look 
 
 
 ### 4. Data processing
-This section includes the data processing steps for filtering the data before modelling. This has been done by using two Notebooks:
-+ *Notebooks/Geolocalisation - Notebook 1.1. Data preprocessing.ipynb*: this Notebook includes the pre-processing and filtering steps applied to the data.
-+ *Notebooks/Geolocalisation - Notebook 1.2. Quality Control.Rmd*: this R Notebook includes code used for plotting the data after filtering. This Notebook is analogous to the *Notebooks/Geolocalisation - Notebook 1.2. Quality Control.R* file.
 
-All data needed to replicate these results, either raw or filtered, can be found in the following [link](https://drive.google.com/drive/folders/1wroGkFZRI2MDLKRSgFWfLus0v7Kj9W94?usp=sharing).
+In order for our data to be suitable for our purposes, we had to first pre-process it to fit our needs. There were several obstacles to overcome:
+
+#### Non-informative positions
+Several columns in our data contained the same value accross all samples: either the information was missing or the genotype was the same in each row. Since these columns provided no information, we proceeded to remove them.
+
+#### Missing data
+##### Removing samples and positions with too many NaNs
+Even though non-informative positions have been filtered out, there are still some positions and samples which remain non-informative: these are positions with a high number of NaN for most samples and also samples which have a high number of NaN for most positions. Since we are facing a problem of high degree of missing values, it is important to consider those samples and positions that do not add a lot of information for the modelling.
+
+Leveraging the number of samples and positions that would result from this filtering, we ended up choosing to remove positions (columns in the dataframe) with more than 80% missingness (defined as those that did not have information for 80% or more of the samples, *rows*). We also filtered out the samples (rows in the dataframe) with more than 70% missingness (with NaN for 70% of their positions, *columns*).
+
+##### Imputing missing values
+For the the data that was still missing after our initial filtering, since we didn't want it to skew our models in any way, we opted to imput it with the global mean. 
 
 ### 5. Modelling
 We used our data to train supervised models on three different variables: two which where classification problems: the **subspecies** of the chimpanzee the sample was taken from and **sampling site** it was obtained from; and one regression problem: the **approximate coordinates** of the sample's origin.
