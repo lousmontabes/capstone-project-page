@@ -16,7 +16,7 @@ To take advantage of an extensive dataset on genomic variation in georeferenced 
 ### 3. Overview of the data
 The dataset used for this project was retrieved from [Fontsere et al. 2022](https://www.sciencedirect.com/science/article/pii/S2666979X22000623) and consists of a catalog of genomic diversity obtained by capturing chromosome 21 from 828 non-invasively collected samples at 48 sampling sites across Africa. 
 
-##### Geographic distribution of chimpanzee subspecies and PanAf sampling locations
+#### Geographic distribution of chimpanzee subspecies and PanAf sampling locations
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/68989675/176246832-35da20f9-e285-4cf1-ab46-0118a27753e1.png">
@@ -24,7 +24,7 @@ The dataset used for this project was retrieved from [Fontsere et al. 2022](http
 
 <sub>The western chimpanzee is shown in blue, Nigeria-Cameroon in pink, central in green, and eastern in orange. The size of the dots represents the number of sequenced samples (n = 828) and color intensity represented the amount of chimpanzee genetic data generated (mega-base pairs of mapped sequence) from each sampling site. Source: Fontsere et al. 2022.</sub>
 
-##### Genomic data
+#### Genomic data
 
 This dataset contains the genomic information along chromosome 21 derived from fecal samples. Due to the nature of non-invasive samples (feces and hair) retrieving good quality genomic information is challenging. For each position in the chromosome, two nucleotides (A, T, C or G) are present, each of which deriving from one of the parents. Genomic data is mapped and referenced to the genomic information of the so-called reference genome. A reference genome is a sequence of DNA used as the reference or gold-standard of genomic information of a certain species. These reference genomes only contain one copy of each chromosome (as opposed to the two copies a biological sample would have) and so, only one nucleotide is chosen to be the representative for each position (eg. position 1 is A, position 2 is T, position 3 is G, position 4 is T…). The genomic information of the chimpanzee sample is stored in relation to the one in the reference. To simplify, in our dataset if the sample has the same information as the one in the reference genome, it is denoted with a *0*, if it has one of the two nucleotides like the one in the reference and the other is different, it would be denoted with a *1*. Finally, if the two nucleotides are different from the one in the reference, this position would be denoted with a *2* in our dataset. Finally, positions for which no genomic information is available are denoted with a *9*. Since the data used in this project comes from feces, it is low quality, and so for many samples and positions there will not be genomic information, and so the value will be *9*. Each of these samples is georeferenced, which means that the exact coordinates of the place of collection of the feces are known. Because of this, for each sample, we have information about its GPS coordinates, sampling site, country or origin, and also the chimpanzee subspecies it belongs.
 
@@ -33,25 +33,33 @@ The following image summarises how genomic data is interpreted and has been stor
 <img src=https://user-images.githubusercontent.com/68989675/176548399-4794e9c1-7efc-4eeb-8960-87a5bc65394a.png>
 </p>
 
-##### More information
+#### More information
 
 To know more about what it means to work with fecal samples, please have a look at the following [video](https://www.youtube.com/watch?v=Fv_LzqCeFoI&t=1457s) (in Catalan). It explains the methodology and main aim of geoposition (in the context of Gorillas instead of Chimpanzees) and it is less than 4 minutes-long.
 
-### 4. Data processing
+### 4. Data processing and quality control
+
+#### 4.1. Data filtering
+
+In order for the data to be suitable for our purposes, it had to be first pre-processed. First, all non-informative positions were removed (ie. those containing the same genotype in all samples or with all NAs). After having filtered out non-informative positions, there were still some positions and samples which remained non-informative. These were positions with a high number of NA for most samples and also samples which had a high number of NA for most positions. Since we were facing a problem of high degree of missing values, it was important to consider those samples and positions that did not add a lot of information for the modelling. 
+
+Because of that, and after leveraging the number of samples and positions that would result from this filtering, we ended up choosing to remove positions (columns in the dataframe) with more than 80% missingness (defined as those that did not have information for 80% or more of the samples, *rows*). We also filtered out the samples (rows in the dataframe) with more than 70% missingness (with NaN for 70% of their positions, *columns*).
 
 In order for our data to be suitable for our purposes, we had to first pre-process it to fit our needs. There were several obstacles to overcome:
 
-#### Non-informative positions
-Several columns in our data contained the same value accross all samples: either the information was missing or the genotype was the same in each row. Since these columns provided no information, we proceeded to remove them.
+The following image summarises the process by with the data was filtered.
+<p align="center">
+<img src="https://user-images.githubusercontent.com/68989675/176550605-22c219bd-38d0-458c-ba3f-1d455d37c229.png">
+</p>
 
-#### Missing data
-##### Removing samples and positions with too many NaNs
-Even though non-informative positions have been filtered out, there are still some positions and samples which remain non-informative: these are positions with a high number of NaN for most samples and also samples which have a high number of NaN for most positions. Since we are facing a problem of high degree of missing values, it is important to consider those samples and positions that do not add a lot of information for the modelling.
+#### 4.2. Imputation of missing values
 
-Leveraging the number of samples and positions that would result from this filtering, we ended up choosing to remove positions (columns in the dataframe) with more than 80% missingness (defined as those that did not have information for 80% or more of the samples, *rows*). We also filtered out the samples (rows in the dataframe) with more than 70% missingness (with NaN for 70% of their positions, *columns*).
+After the initial filtering of the data, there were some cells values that remained missing and so as not to skew the modelling in any way, we chose to impute these cells with the global mean value.
 
-##### Imputing missing values
-For the the data that was still missing after our initial filtering, since we didn't want it to skew our models in any way, we opted to imput it with the global mean. 
+The following figure shows the distribution of mean values per sample. The mean value of around 0.12 was imputed in all missing values. 
+<p align="center">
+<img src="https://user-images.githubusercontent.com/68989675/176551069-b70180f8-cb43-41b8-a778-b4df77aeaa7c.png">
+</p>
 
 ### 5. Modelling
 We used our data to train supervised models on three different variables: two which where classification problems: the **subspecies** of the chimpanzee the sample was taken from and **sampling site** it was obtained from; and one regression problem: the **approximate coordinates** of the sample's origin.
