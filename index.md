@@ -1,4 +1,5 @@
 # Geolocalisation of DNA chimpanzee samples using machine learning
+*Paula Esteller, David Martin and Lluis Montabes*
 
 ## 1. Background
 As humans we have always been fascinated by our closest related species, the chimpanzees (*Pan troglodytes*). At the same time, human activities have led to a drastic decline in the population size of this species, mainly caused by the illegal wildlife trade, habitat destruction, poaching for local consumption and human linked disease outbreaks, among many others. In this regard, genetic information could be useful to infer the populations of origin of confiscated individuals from illegal trade, detect poaching hotspots, and guide repatriation planning. Taking advantage of the most complete chimpanzee genetic map ever generated, here we implement a machine-learning geolocalisation approach, assessing its precision and robustness in determining the origin of confiscated chimpanzees.
@@ -132,10 +133,7 @@ In this case, it can be observed that **Categorical Naive Bayes** is not able to
 
 ### 5.2. Classification of sampling site
 
-Having obtained good results at subspecies level, we will proceed to attempt to classify our samples at a higher resolution: predicting the sampling site the sample was obtained from.
-
-We have a total of 36 named sampling sites that we will serve as our labels.
-Based on the performance of the different classifiers in Section 5.1, the classifiers that have been evaluated are:
+After having obtained good results at the subspecies level, we then proceeded to classify our samples at a higher resolution: predicting the sampling site the sample was obtained from. We had a total of 36 named sampling sites that were used as labels. Also, and based on the performance of the different classifiers for modelling subspecies, the classifiers that were evaluated were restricted to:
 
 1. Random Forest
 2. Nearest Neighbor
@@ -143,6 +141,9 @@ Based on the performance of the different classifiers in Section 5.1, the classi
 
 The code used in this section can be found in *Notebooks/Geolocalisation - Notebook 2.2. Modelling genomic data - SAMPLINGSITE.ipynb*
 
+As anticipated, predicting sampling site was more complex than predicting each sample subspecies and so for that we performed a different strategy. First we fit each classifier using default parameters and then optimised the parameters for each classifier. 
+
+However, given the nature of this project (ie. the dataset of study contains a relatively low number of samples), when dividing the whole dataset into train and test sets, the number of instance in each of the groups became even smaller. Because of this, the power to train a classifier that was able to accurately predict the location of a particular sample was also reduced. As such, we decided to implement the **leave-one-out cross-validation** approach, as it allows for each sample to be used as a test set while the remaining samples remain in the training set. This method is less biased and tends to not overesetimate perfomance of the model eventhough it is computationally expensive. In our case, the implemented this approach with the optimised parameters of each classifier.
 ![image](https://user-images.githubusercontent.com/7366498/176051160-dca7b668-797c-45f7-8dbd-f55ff3a3baf3.png)
 ![image](https://user-images.githubusercontent.com/7366498/176051196-2b3a9fef-3e72-4a60-83e0-48d7a20d9bda.png)
 ![image](https://user-images.githubusercontent.com/7366498/176051226-efdcd42a-b847-4d0f-8269-5085f0b5c0c5.png)
