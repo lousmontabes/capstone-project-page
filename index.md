@@ -124,3 +124,13 @@ This algorythm gave slightly better results than the linear regression, dependin
 The code used in this section can be found in *Notebooks/Geolocalisation - Notebook 2.3. Modelling genomic data - Geographical prediction
 .ipynb*
 
+#### 6. Limitations of the study and future advances
+1. Require training vs test datasets to be equality represented and consider removing sampling sites with a small number of samples.
+2. Stratify the perfomance metrics according to subspecies in order to account for differences in the distribution ranges of the subspecies.
+3. Use lower quality samples in order to assess the performance of the classifiers.
+4. Assess alternative imputation methods, eg. linkage disequilibrium.
+5. Develop a metric to assess the perfomance of the predictors based on distance to true origin rather than success in prediction.
+
+#### Conclusions
++ It is possible to use classifiers to accurately predict the subspecies of a chimpanzee using genomic information.
++ Using a classifier based on support vector machine is a good alternative to geolocalise chimpanzee samples with considerably high accuracy (~0.8 f1-score).
