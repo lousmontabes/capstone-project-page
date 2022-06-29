@@ -83,7 +83,7 @@ PCA coloured by sampling site
 
 <img src="https://user-images.githubusercontent.com/68989675/176558138-44254dd9-b812-452c-995c-83e693c6730d.png" width="500"/> <img src="https://user-images.githubusercontent.com/68989675/176558172-f43ca687-1705-48f7-a765-8f4307254916.png" width="500"/> 
 
-Note that only PC1 vs PC2 and PC5 vs PC6 were shown. No substructure is seen in the first components of the PC if we plot the PCA by sampling site. This is also to be expected, since PCA captures common variation in the first components and so we expect private positions to be driving sampling site substructure. As such, we could only expect the PC to start distinguishing sampling sites in bigger PCs. This can be seen if we plot the PC5 vs PC6. 
+Note that only PC1 *vs* PC2 and PC5 *vs* PC6 were shown. No substructure is seen in the first components of the PC if we plot the PCA by sampling site. This is also to be expected, since PCA captures common variation in the first components and so we expect private positions to be driving sampling site substructure. As such, we could only expect the PC to start distinguishing sampling sites in bigger PCs. This can be seen if we plot the PC5 *vs* PC6. 
 
 ## 5. Modelling
 We used our data to train supervised models on three different variables: the **subspecies** of the chimpanzee sample, the **sampling site** where the sample was obtained and the **approximate coordinated** of the origin of the sample. For the first two variables, a classifier was modelled and for the last variable, regressors were used.
@@ -188,11 +188,11 @@ The code used in this section can be found in *Notebooks/Geolocalisation - Noteb
 .ipynb*
 
 ## 6. Limitations of the study and future advances
-+ Require training vs test datasets to be equality represented and consider removing sampling sites with a small number of samples.
-+ Stratify the perfomance metrics according to subspecies in order to account for differences in the distribution ranges of each subspecies.
-+ Use lower quality samples in order to assess the performance of the classifiers.
-+ Assess alternative imputation methods, eg. linkage disequilibrium.
-+ Develop a metric to assess the perfomance of the predictors based on distance to true origin rather than success in prediction.
++ Main **limitation** is the **dataset**, the sites that are not represented cannot be used for prediction. Require **training *vs* test** sets to be **equality represented** and consider removing sampling sites with a small number of samples.
++ **Stratify the perfomance metrics according to subspecies** in order to account for differences in the distribution ranges of each subspecies.
++ Expand the reference dataset by adding **lower quality** samples in order to assess the performance of the classifiers.
++ Assess **alternative imputation methods** which are biologically relevant, eg. linkage disequilibrium.
++ **Develop a metric** to assess the perfomance of the predictors based on distance to true origin rather than success in prediction.
 
 ## 7. Conclusions
 + It is possible to use classifiers to accurately predict the subspecies of a chimpanzee using genomic information.
