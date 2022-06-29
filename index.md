@@ -1,6 +1,6 @@
-## Geolocalisation of DNA chimpanzee samples using machine learning
+# Geolocalisation of DNA chimpanzee samples using machine learning
 
-### 1. Background
+## 1. Background
 As humans we have always been fascinated by our closest related species, the chimpanzees (*Pan troglodytes*). At the same time, human activities have led to a drastic decline in the population size of this species, mainly caused by the illegal wildlife trade, habitat destruction, poaching for local consumption and human linked disease outbreaks, among many others. In this regard, genetic information could be useful to infer the populations of origin of confiscated individuals from illegal trade, detect poaching hotspots, and guide repatriation planning. Taking advantage of the most complete chimpanzee genetic map ever generated, here we implement a machine-learning geolocalisation approach, assessing its precision and robustness in determining the origin of confiscated chimpanzees.
 
 <p align="center"> Summary image of the project</p>
@@ -10,13 +10,13 @@ As humans we have always been fascinated by our closest related species, the chi
 </p>
 <p align="center"> <sub>Left panel: Dataset generated within the PanAf project. Right top panel: Study of chimpanzee history through population genomics.<br/> Right bottom panel: Geolocalisation of confiscated chimpanzees. Graphical abstract from Fontsere et al. 2022 designed by Marina Alvarez-Estape.</sub></p>
 
-### 2. Objectives
+## 2. Objectives
 To take advantage of an extensive dataset on genomic variation in georeferenced chimpanzees to develop a machine-learning-based tool for the geolocation of chimpanzee samples which can be further implemented in other species.
 
-### 3. Overview of the data
+## 3. Overview of the data
 The dataset used for this project was retrieved from [Fontsere et al. 2022](https://www.sciencedirect.com/science/article/pii/S2666979X22000623) and consists of a catalog of genomic diversity obtained by capturing chromosome 21 from 828 non-invasively collected samples at 48 sampling sites across Africa. 
 
-#### Geographic distribution of chimpanzee subspecies and PanAf sampling locations
+### Geographic distribution of chimpanzee subspecies and PanAf sampling locations
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/68989675/176246832-35da20f9-e285-4cf1-ab46-0118a27753e1.png">
@@ -33,13 +33,13 @@ The following image summarises how genomic data is interpreted and has been stor
 <img src=https://user-images.githubusercontent.com/68989675/176548399-4794e9c1-7efc-4eeb-8960-87a5bc65394a.png>
 </p>
 
-#### More information
+### More information
 
 To know more about what it means to work with fecal samples, please have a look at the following [video](https://www.youtube.com/watch?v=Fv_LzqCeFoI&t=1457s) (in Catalan). It explains the methodology and main aim of geoposition (in the context of Gorillas instead of Chimpanzees) and it is less than 4 minutes-long.
 
-### 4. Data processing and quality control
+## 4. Data processing and quality control
 
-#### 4.1. Data filtering
+### 4.1. Data filtering
 
 In order for the data to be suitable for our purposes, it had to be first pre-processed. First, all non-informative positions were removed (ie. those containing the same genotype in all samples or with all NAs). After having filtered out non-informative positions, there were still some positions and samples which remained non-informative. These were positions with a high number of NA for most samples and also samples which had a high number of NA for most positions. Since we were facing a problem of high degree of missing values, it was important to consider those samples and positions that did not add a lot of information for the modelling. 
 
@@ -52,7 +52,7 @@ The following image summarises the process by with the data was filtered.
 <img src="https://user-images.githubusercontent.com/68989675/176550605-22c219bd-38d0-458c-ba3f-1d455d37c229.png">
 </p>
 
-#### 4.2. Imputation of missing values
+### 4.2. Imputation of missing values
 
 After the initial filtering of the data, there were some cells values that remained missing and so as not to skew the modelling in any way, we chose to impute these cells with the global mean value.
 
@@ -61,12 +61,35 @@ The following figure shows the distribution of mean values per sample. The mean 
 <img src="https://user-images.githubusercontent.com/68989675/176551069-b70180f8-cb43-41b8-a778-b4df77aeaa7c.png">
 </p>
 
-### 5. Modelling
+### 4.3. Data visualisation
+Since the goal of this project is to being able to classify variable like subspecies and sampling site, we decided to inspect this data to make sure that the proportion of the samples remains unaltered after filtering. In the following figures we can see the number of samples included in the dataset after filtering that belong to each subspecies and also stratified by sampling site.
+
+<p align="center">
+<img width="700" src="https://user-images.githubusercontent.com/68989675/176556114-32023053-ebb8-4311-b7d6-d9aa28b88f33.png">
+<img width="700" src="https://user-images.githubusercontent.com/68989675/176556123-887e4586-d591-4665-ae16-68d916c7d6c1.png">
+</p>
+
+### 4.4. Quality control by means of PC analysis
+We performed Principal Component analysis (PCA) in order to check the impact that the filtering applied to the data could have had in our samples. If the analysis had been so stringent so as to remove the biological meaning of our data, samples should not cluster by subspecies. PC analysis was perfomed on all filtered data and then plotted and coloured according on different variables: subspecies and sampling site.
+
+PCA coloured by subspecies 
+
+<img src="https://user-images.githubusercontent.com/68989675/176557770-919f7b40-8ef6-4e74-b02a-7081a009230b.png" width="500"/> <img src="https://user-images.githubusercontent.com/68989675/176557783-90448f97-9587-4623-9ece-006bbe9fa8e6.png" width="500"/> 
+
+The four subspecies followed the clustering pattern expected so that all subspecies could be separated. This indicated that the filtering we perfomed in the dataset did not have a negative impact in the data, since a biological signal can still be retrieved. 
+
+PCA coloured by sampling site
+
+<img src="https://user-images.githubusercontent.com/68989675/176558138-44254dd9-b812-452c-995c-83e693c6730d.png" width="500"/> <img src="https://user-images.githubusercontent.com/68989675/176558172-f43ca687-1705-48f7-a765-8f4307254916.png" width="500"/> 
+
+Note that only PC1 vs PC2 and PC5 vs PC6 were shown. No substructure is seen in the first components of the PC if we plot the PCA by sampling site. This is also to be expected, since PCA captures common variation in the first components and so we expect private positions to be driving sampling site substructure. As such, we could only expect the PC to start distinguishing sampling sites in bigger PCs. This can be seen if we plot the PC5 vs PC6. 
+
+## 5. Modelling
 We used our data to train supervised models on three different variables: the **subspecies** of the chimpanzee sample, the **sampling site** where the sample was obtained and the **approximate coordinated** of the origin of the sample. For the first two variables, a classifier was modelled and for the last variable, regressors were used.
 
 For most of the models, the data was divided into two subsets: a training set (80% of the data, n = 276 samples) and a test set (20% of the data, n = 70 samples).
 
-#### 5.1. Classification of subspecies
+### 5.1. Classification of subspecies
 
 Considering the fact that we are working with genetic data of chimpanzees distributed accross a very large geographical range encompassing most of west and central Africa, the most obvious distinction we can hope to find in our data is the **subspecies** of chimpanzee the DNA corresponds to.
 
@@ -107,7 +130,7 @@ The following figures show the confusion matrices of each model's predictions of
 
 In this case, it can be observed that **Categorical Naive Bayes** is not able to correctly predict the subspecies of the samples which belong to either the Central or Nigeria-Cameroon subspecies.
 
-#### 5.2. Classification of sampling site
+### 5.2. Classification of sampling site
 
 Having obtained good results at subspecies level, we will proceed to attempt to classify our samples at a higher resolution: predicting the sampling site the sample was obtained from.
 
@@ -125,13 +148,13 @@ The code used in this section can be found in *Notebooks/Geolocalisation - Noteb
 ![image](https://user-images.githubusercontent.com/7366498/176051226-efdcd42a-b847-4d0f-8269-5085f0b5c0c5.png)
 _Confusion matrices of each model's predictions of sampling sites of the test set_
 
-#### 5.3. Geographic prediction
+### 5.3. Geographic prediction
 
 As we have the information regarding the coordinates of each sample, we used it to create regression models and predict the relative area where a sample was taken from. We used the following models:
 1. Linear Regression
 2. K Nearest Neighbors Regression
 
-##### KNearest Neighbors Regression
+#### KNearest Neighbors Regression
 Based on the k-nearerst neighbors algorithm.
 The target is predicted by performing a local interpolation of the nearest neighbors in the training set
 
@@ -152,13 +175,13 @@ This algorythm gave slightly better results than the linear regression, dependin
 The code used in this section can be found in *Notebooks/Geolocalisation - Notebook 2.3. Modelling genomic data - Geographical prediction
 .ipynb*
 
-#### 6. Limitations of the study and future advances
+## 6. Limitations of the study and future advances
 + Require training vs test datasets to be equality represented and consider removing sampling sites with a small number of samples.
 + Stratify the perfomance metrics according to subspecies in order to account for differences in the distribution ranges of each subspecies.
 + Use lower quality samples in order to assess the performance of the classifiers.
 + Assess alternative imputation methods, eg. linkage disequilibrium.
 + Develop a metric to assess the perfomance of the predictors based on distance to true origin rather than success in prediction.
 
-#### 7. Conclusions
+## 7. Conclusions
 + It is possible to use classifiers to accurately predict the subspecies of a chimpanzee using genomic information.
 + Using a support-vector-machine-based classifier is a good alternative to geolocalise chimpanzee samples with considerably high accuracy (~0.8 f1-score).
