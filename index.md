@@ -103,6 +103,18 @@ As we have the information regarding the coordinates of each sample, we used it 
 1. Linear Regression
 2. K Nearest Neighbors Regression
 
+##### KNearest Neighbors Regression
+Based on the k-nearerst neighbors algorithm.
+The target is predicted by performing a local interpolation of the nearest neighbors in the training set
+
+Can be used in cases where the labels are continuous, the label assigned to each query point is computed based on the mean of the labels of its nearest neighbors
+
+With the weights keywords you can swap between uniform weight or give more to the closer points, the closer distance approach gives slightly better results.
+It uses different algorithms but it can automatically chose one with the information that is given.
+You can change the number of nearest neighbors, gave similar results but the default (5) and 4 had the best values.
+The leaf_size makes no changes
+The power parameter is better on default (euclidean distance)
+
 The code used in this section can be found in *Notebooks/Geolocalisation - Notebook 2.3. Modelling genomic data - Geographical prediction
 .ipynb*
 
