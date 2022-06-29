@@ -131,6 +131,8 @@ The following figures show the confusion matrices of each model's predictions of
 
 In this case, it can be observed that **Categorical Naive Bayes** is not able to correctly predict the subspecies of the samples which belong to either the Central or Nigeria-Cameroon subspecies.
 
+**Conclusion:** As anticipated by the PC analysis, the sample's subspecies can be easily predicted using a variety of classifiers. In our case, it was a proof that the biological meaning of the data was not lost after filtering and that different models can be used for prediction in our data.
+
 ### 5.2. Classification of sampling site
 
 After having obtained good results at the subspecies level, we then proceeded to classify our samples at a higher resolution: predicting the sampling site the sample was obtained from. We had a total of 36 named sampling sites that were used as labels. Also, and based on the performance of the different classifiers for modelling subspecies, the classifiers that were evaluated were restricted to:
@@ -144,14 +146,24 @@ The code used in this section can be found in *Notebooks/Geolocalisation - Noteb
 As anticipated, predicting sampling site was more complex than predicting each sample subspecies and so for that we performed a different strategy. First we fit each classifier using default parameters and then optimised the parameters for each classifier. 
 
 However, given the nature of this project (ie. the dataset of study contains a relatively low number of samples), when dividing the whole dataset into train and test sets, the number of instance in each of the groups became even smaller. Because of this, the power to train a classifier that was able to accurately predict the location of a particular sample was also reduced. As such, we decided to implement the **leave-one-out cross-validation** approach, as it allows for each sample to be used as a test set while the remaining samples remain in the training set. This method is less biased and tends to not overesetimate perfomance of the model eventhough it is computationally expensive. In our case, the implemented this approach with the optimised parameters of each classifier.
-![image](https://user-images.githubusercontent.com/7366498/176051160-dca7b668-797c-45f7-8dbd-f55ff3a3baf3.png)
-![image](https://user-images.githubusercontent.com/7366498/176051196-2b3a9fef-3e72-4a60-83e0-48d7a20d9bda.png)
-![image](https://user-images.githubusercontent.com/7366498/176051226-efdcd42a-b847-4d0f-8269-5085f0b5c0c5.png)
-_Confusion matrices of each model's predictions of sampling sites of the test set_
+
+|Classifier  | F1-score (def)| Accuracy (def) | F1-score (opt)| Accuracy (opt) |F1-score (loo)| Accuracy (loo) |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+|Random Forest  | 0.64  | 0.56  | 0.61  | 0.56  |0.66  | 0.48  |
+|Nearest Neighbor | 0.47  | 0.47  |   0.61  | 0.59  |0.70  | 0.58 |
+|Support Vector Machine | 0.80  | 0.74  |   0.80  | 0.74  |0.83  | 0.72  |
+
+<sup>'F1-score' corresponds to F1-score (micro) and 'Accuracy' correponds to balanced accuracy. 'def', 'opt' and 'loo' denote default, optimised and leave-one-out cross-validation with optimised parameters, respectively.</sup>
+
+The classifier based on **Support Vector Machine** shows the highest accuracy and f1-scores, specially when implemented with the leave-one-out cross-validation approach. As such, we encourage to use this classifier for geolocalising chimpanzee samples with considerably high accuracy.
+
+![image](https://user-images.githubusercontent.com/68989675/176561403-15d2ea40-d4ac-4d69-bb6c-4bf03d961070.png)
+
+**Conclusion:** As it was to be expected, accurately predicting the sampling site of a chimpanzee sample is more complex than assessing its subspecies. Here we have presented a comparative approach of different classifiers to do so. We consitently saw that when parameters were optimised for the different classifiers, although the F1-scores and accuracy were only slighlty improving and the new predicted sites were in most cases still incorrect, they were located closer to the true sampling site. This makes us believe that assessing the accuracy of the classifiers by means of calculating the distance (eg. in kilometers) from the true origin should prove to be a more appropiate way to evaluate the performance of the different models. Regadless of the metric used to assess this, we saw that the classifier based on **support vector machine** shows the highest F1-scores and accuracy of the three models, and so we encourage to use this classifier for geolocalising chimpanzee samples with considerably high accuracy.
 
 ### 5.3. Geographic prediction
 
-As we have the information regarding the coordinates of each sample, we used it to create regression models and predict the relative area where a sample was taken from. We used the following models:
+As we had the information regarding the coordinates of each sample, we used it to create regression models and predict the relative area where a sample was taken from. We used the following models:
 1. Linear Regression
 2. K Nearest Neighbors Regression
 
@@ -171,7 +183,6 @@ This algorythm gave slightly better results than the linear regression, dependin
 
 ![image](https://user-images.githubusercontent.com/25895127/176486370-dec18a36-ce50-4148-9248-80c4f685ed51.png)
 ![image](https://user-images.githubusercontent.com/25895127/176486495-0f7674b5-b752-4f63-8f78-614b618fc819.png)
-
 
 The code used in this section can be found in *Notebooks/Geolocalisation - Notebook 2.3. Modelling genomic data - Geographical prediction
 .ipynb*
