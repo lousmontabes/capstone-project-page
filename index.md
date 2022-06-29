@@ -1,7 +1,7 @@
 ## Geolocalisation of DNA chimpanzee samples using machine learning
 
 ### 1. Background
-As humans we have always been fascinated by our closest related species, the chimpanzees. At the same time, human activities have led to a drastic decline in the population size of this species, mainly caused by the illegal wildlife trade, habitat destruction, poaching for local consumption and human linked disease outbreaks, among many others. In this regard, genetic information could be useful to infer the populations of origin of confiscated individuals from illegal trade, detect poaching hotspots, and guide repatriation planning. Taking advantage of the most complete chimpanzee genetic map ever generated, here we implement a machine-learning geolocalisation approach, assessing its precision and robustness in determining the origin of confiscated chimpanzees.
+As humans we have always been fascinated by our closest related species, the chimpanzees (*Pan troglodytes*). At the same time, human activities have led to a drastic decline in the population size of this species, mainly caused by the illegal wildlife trade, habitat destruction, poaching for local consumption and human linked disease outbreaks, among many others. In this regard, genetic information could be useful to infer the populations of origin of confiscated individuals from illegal trade, detect poaching hotspots, and guide repatriation planning. Taking advantage of the most complete chimpanzee genetic map ever generated, here we implement a machine-learning geolocalisation approach, assessing its precision and robustness in determining the origin of confiscated chimpanzees.
 
 <p align="center"> Summary image of the project</p>
 
@@ -62,18 +62,19 @@ The following figure shows the distribution of mean values per sample. The mean 
 </p>
 
 ### 5. Modelling
-We used our data to train supervised models on three different variables: two which where classification problems: the **subspecies** of the chimpanzee the sample was taken from and **sampling site** it was obtained from; and one regression problem: the **approximate coordinates** of the sample's origin.
+We used our data to train supervised models on three different variables: the **subspecies** of the chimpanzee sample, the **sampling site** where the sample was obtained and the **approximate coordinated** of the origin of the sample. For the first two variables, a classifier was modelled and for the last variable, regressors were used.
+
+For most of the models, the data was divided into two subsets: a training set (80% of the data, n = 276 samples) and a test set (20% of the data, n = 70 samples).
 
 #### 5.1. Classification of subspecies
 
 Considering the fact that we are working with genetic data of chimpanzees distributed accross a very large geographical range encompassing most of west and central Africa, the most obvious distinction we can hope to find in our data is the **subspecies** of chimpanzee the DNA corresponds to.
 
 We can identify four distinct subspecies:
-
-- Central
-- Eastern
-- Nigeria-Cameroon
-- Western
+- Western chimpanzees (*Pan troglodytes verus*)
+- Nigeria-Cameroon chimpanzees (*Pan troglodytes ellioti*)
+- Central chimpanzees (*Pan troglodytes troglodytes*)
+- Eastern chimpanzees (*Pan troglodytes schweinfurthii*)
 
 We used the following models in this prediction:
 
@@ -84,15 +85,27 @@ We used the following models in this prediction:
 
 The code used in this section can be found in *Notebooks/Geolocalisation - Notebook 2.1. Modelling genomic data - SUBSPECIES.ipynb*
 
-The modelling for this data is very straightforward, since we will use, in all cases, the default parameters for each model. This is because early on we found that we were obtaining very good results without the need to adjust parameters.
+The modelling for this data was very straightforward and in all cases we made use of the default parameters for each model. This is because early on we found that we were obtaining very good results without the need to adjust parameters.
 
-The results of predicting at subspecies level were very satisfactory, achieving perfect classifications accross three out of the four classifiers used.
+The results of predicting at subspecies level were very satisfactory, achieving perfect classifications accross three out of the four classifiers used. The following table summarises the performace of the different models tested for the classifications of subspecies.
+
+|Classifier  | F1-score  | Accuracy |
+|:---|:---:|:---:|
+|Random Forest  | 1  | 1  |
+|Nearest Neighbor | 1  | 1  |   
+|Support Vector Machine | 1  | 1  |   
+|Categorical Naive Bayes |  0.89 | 0.5  |  
+
+<sup>'F1-score' corresponds to F1-score (micro) and 'Accuracy' correponds to balanced accuracy.</sup>
+
+We can see that **Categorical Naive Bayes** is the only model that didn't achieve accuracy of 1.
+
+The following figures show the confusion matrices of each model's predictions of subspecies of the test set.
 
 ![image](https://user-images.githubusercontent.com/7366498/176046539-025d8a9c-1e1b-424d-ba24-cb15a324cfd5.png)![image](https://user-images.githubusercontent.com/7366498/176046744-7c5ee3b2-226b-495f-b07a-4a07fd9e9703.png)
 ![image](https://user-images.githubusercontent.com/7366498/176046757-a310e948-c443-4ef2-9341-ad522b5a3995.png)![image](https://user-images.githubusercontent.com/7366498/176046763-045e8d5f-e5ea-4f40-9a1d-c475c71f6d4b.png)
-_Confusion matrices of each model's predictions of subspecies of the test set_
 
-We can see that **Categorical Naive Bayes** is the only model that didn't achieve a perfect f1-score.
+In this case, it can be observed that **Categorical Naive Bayes** is not able to correctly predict the subspecies of the samples which belong to either the Central or Nigeria-Cameroon subspecies.
 
 #### 5.2. Classification of sampling site
 
