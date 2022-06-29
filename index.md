@@ -112,8 +112,14 @@ Can be used in cases where the labels are continuous, the label assigned to each
 With the weights keywords you can swap between uniform weight or give more to the closer points, the closer distance approach gives slightly better results.
 It uses different algorithms but it can automatically chose one with the information that is given.
 You can change the number of nearest neighbors, gave similar results but the default (5) and 4 had the best values.
-The leaf_size makes no changes
-The power parameter is better on default (euclidean distance)
+The leaf_size makes no changes.
+The power parameter is better on default (euclidean distance).
+
+This algorythm gave slightly better results than the linear regression, depending on the parameters it gives a mean error in prediction between 1.30 and 1.315 depending on the algorithm and a r2-score between 0.973 and 0.978.
+
+![image](https://user-images.githubusercontent.com/25895127/176486370-dec18a36-ce50-4148-9248-80c4f685ed51.png)
+![image](https://user-images.githubusercontent.com/25895127/176486495-0f7674b5-b752-4f63-8f78-614b618fc819.png)
+
 
 The code used in this section can be found in *Notebooks/Geolocalisation - Notebook 2.3. Modelling genomic data - Geographical prediction
 .ipynb*
