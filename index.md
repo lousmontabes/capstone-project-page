@@ -199,4 +199,4 @@ Predicting the location of origin of the sample using regression models shows pr
 We have shown that it is possible to apply supervised machine-learning tools for the identification and geolocalisation of genomic data. In particular, we show that:
 + A variety of classifiers can be used to accurately assign the subspecies of a chimpanzee using genomic information.
 + Using a support-vector-machine-based classifier is a good alternative to geolocalise chimpanzee samples with considerably high accuracy (~0.8 f1-score).
-+ ULTIMA CONCLUSION DE REGRESORES
++ Training regression models to predict the coordinates of a sample's origin shows potential.
