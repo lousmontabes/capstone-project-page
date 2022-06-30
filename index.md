@@ -119,7 +119,7 @@ The results of predicting at subspecies level were very satisfactory, achieving 
 |Support Vector Machine | 1  | 1  |   
 |Categorical Naive Bayes |  0.89 | 0.5  |  
 
-<sup>'F1-score' corresponds to F1-score (micro) and 'Accuracy' correponds to balanced accuracy.</sup>
+<sup>'F1-score' corresponds to F1-score (micro) and 'Accuracy' corresponds to balanced accuracy.</sup>
 
 We can see that **Categorical Naive Bayes** is the only model that didn't achieve accuracy of 1.
 
@@ -177,15 +177,15 @@ Given that we obtained satisfactory results from a simple Linear Regression, we 
 
 This model yielded slightly better results than the Linear Regression model; the mean error in prediction ranged from 1.3 to 1.315 depending on the parameters we trained the model with - considerably better than the error obtained from LR. Our R2 score ranged between 0.973 and 0.978, indicating, again, a high level of codetermination.
 
-depending on the parameters it gives a mean error in prediction between 1.30 and 1.315 depending on the algorithm and a r2-score between 0.973 and 0.978.
-
 ![image](https://user-images.githubusercontent.com/25895127/176486370-dec18a36-ce50-4148-9248-80c4f685ed51.png)
 ![image](https://user-images.githubusercontent.com/25895127/176486495-0f7674b5-b752-4f63-8f78-614b618fc819.png)
 
 The code used in this section can be found in *Notebooks/Geolocalisation - Notebook 2.3. Modelling genomic data - Geographical prediction
 .ipynb*
 
-**Conclusion:**  AÑADIR CONCLUSION DE ESTA PARTE
+**Conclusion:**  
+
+Predicting the location of origin of the sample using regression models shows promising results, showing the possibility of predicting the overall area a sample was taken from. This, however, is to be expected, since we have already seen that we are able to predict the name of the region of origin of a sample. It would be interesting to measure how accurately a sample gets placed inside a region relative to other samples from the same region.
 
 ## 6. Limitations of the study and future advances
 + The main **limitation** of this study is the **dataset** itself. As such, the sites that are not represented in the training dataset cannot be used for prediction. Because of this, it could be required that the **training *vs* test** were **equality represented** and consider removing sampling sites with a small number of samples.
