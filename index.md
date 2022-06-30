@@ -167,7 +167,13 @@ As we had the information regarding the coordinates of each sample, we used it t
 1. Linear Regression
 2. K Nearest Neighbors Regression
 
-#### KNearest Neighbors Regression
+#### Linear Regression
+We first used a simple Linear Regression model to test if we could indeed predict the coordinates of a sample given our data.
+We obtained a mean error of 1.602, meaning that our predicted coordinates were, in average, around 1.602 degrees off, or approximately 178 kilometers.
+
+The R2 score of our model was 0.976, indicating a high level of codetermination between our predictors and our regression line.
+
+#### K Nearest Neighbors Regression
 Based on the k-nearerst neighbors algorithm.
 The target is predicted by performing a local interpolation of the nearest neighbors in the training set
 
