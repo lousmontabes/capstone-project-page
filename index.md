@@ -33,6 +33,8 @@ The following image summarises how genomic data is interpreted and has been stor
 <p align="center">
 <img src=https://user-images.githubusercontent.com/68989675/176548399-4794e9c1-7efc-4eeb-8960-87a5bc65394a.png>
 </p>
+![image](https://user-images.githubusercontent.com/7366498/176686631-7ee5e28b-b4ca-4f7b-8e5e-35f3e35da0f2.png)
+
 
 ### More information
 
