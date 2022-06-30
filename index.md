@@ -92,7 +92,7 @@ For most of the models, the data was divided into two subsets: a training set (8
 
 ### 5.1. Classification of subspecies
 
-Considering the fact that we are working with genetic data of chimpanzees distributed accross a very large geographical range encompassing most of west and central Africa, the most obvious distinction we can hope to find in our data is the **subspecies** of chimpanzee the DNA corresponds to.
+Considering the fact that we are working with genetic data of chimpanzees distributed accross a very large geographical range encompassing most of west and central Africa, the most obvious distinction and a first approximation we can hope to find in our data is the **subspecies** of chimpanzee the DNA corresponds to.
 
 We can identify four distinct subspecies:
 - Western chimpanzees (*Pan troglodytes verus*)
@@ -187,13 +187,18 @@ This algorythm gave slightly better results than the linear regression, dependin
 The code used in this section can be found in *Notebooks/Geolocalisation - Notebook 2.3. Modelling genomic data - Geographical prediction
 .ipynb*
 
+**Conclusion:**  AÑADIR CONCLUSION DE ESTA PARTE
+
 ## 6. Limitations of the study and future advances
-+ Main **limitation** is the **dataset**, the sites that are not represented cannot be used for prediction. Require **training *vs* test** sets to be **equality represented** and consider removing sampling sites with a small number of samples.
-+ **Stratify the perfomance metrics according to subspecies** in order to account for differences in the distribution ranges of each subspecies.
++ The main **limitation** of this study is the **dataset** itself. As such, the sites that are not represented in the training dataset cannot be used for prediction. Because of this, it could be required that the **training *vs* test** were **equality represented** and consider removing sampling sites with a small number of samples.
 + Expand the reference dataset by adding **lower quality** samples in order to assess the performance of the classifiers.
 + Assess **alternative imputation methods** which are biologically relevant, eg. linkage disequilibrium.
 + **Develop a metric** to assess the perfomance of the predictors based on distance to true origin rather than success in prediction.
++ **Stratify the perfomance metrics according to subspecies** in order to account for differences in the distribution ranges of each subspecies.
++ Expand this methodology to geolocalise *other species* (eg. bonobos, gorillas, orangutans).
 
 ## 7. Conclusions
-+ It is possible to use classifiers to accurately predict the subspecies of a chimpanzee using genomic information.
+We have shown that it is possible to apply supervised machine-learning tools for the identification and geolocalisation of genomic data. In particular, we show that:
++ A variety of classifiers can be used to accurately assign the subspecies of a chimpanzee using genomic information.
 + Using a support-vector-machine-based classifier is a good alternative to geolocalise chimpanzee samples with considerably high accuracy (~0.8 f1-score).
++ ULTIMA CONCLUSION DE REGRESORES
