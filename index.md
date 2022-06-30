@@ -174,18 +174,11 @@ We obtained a mean error of 1.602, meaning that our predicted coordinates were, 
 The R2 score of our model was 0.976, indicating a high level of codetermination between our predictors and our regression line.
 
 #### K Nearest Neighbors Regression
-Based on the k-nearerst neighbors algorithm.
-The target is predicted by performing a local interpolation of the nearest neighbors in the training set
+Given that we obtained satisfactory results from a simple Linear Regression, we wanted to test another model to see if these results were consistent. To this end, we chose to test using K-Nearest Neighbors Regression.
 
-Can be used in cases where the labels are continuous, the label assigned to each query point is computed based on the mean of the labels of its nearest neighbors
+This model yielded slightly better results than the Linear Regression model; the mean error in prediction ranged from 1.3 to 1.315 depending on the parameters we trained the model with - considerably better than the error obtained from LR. Our R2 score ranged between 0.973 and 0.978, indicating, again, a high level of codetermination.
 
-With the weights keywords you can swap between uniform weight or give more to the closer points, the closer distance approach gives slightly better results.
-It uses different algorithms but it can automatically chose one with the information that is given.
-You can change the number of nearest neighbors, gave similar results but the default (5) and 4 had the best values.
-The leaf_size makes no changes.
-The power parameter is better on default (euclidean distance).
-
-This algorythm gave slightly better results than the linear regression, depending on the parameters it gives a mean error in prediction between 1.30 and 1.315 depending on the algorithm and a r2-score between 0.973 and 0.978.
+depending on the parameters it gives a mean error in prediction between 1.30 and 1.315 depending on the algorithm and a r2-score between 0.973 and 0.978.
 
 ![image](https://user-images.githubusercontent.com/25895127/176486370-dec18a36-ce50-4148-9248-80c4f685ed51.png)
 ![image](https://user-images.githubusercontent.com/25895127/176486495-0f7674b5-b752-4f63-8f78-614b618fc819.png)
