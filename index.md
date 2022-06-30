@@ -50,7 +50,7 @@ In order for our data to be suitable for our purposes, we had to first pre-proce
 
 The following image summarises the process by with the data was filtered.
 <p align="center">
-<img src="https://user-images.githubusercontent.com/68989675/176550605-22c219bd-38d0-458c-ba3f-1d455d37c229.png">
+<img src="https://user-images.githubusercontent.com/68989675/176656838-dd1fe763-bb3e-4bdd-93ef-d95769604994.png">
 </p>
 
 ### 4.2. Imputation of missing values
