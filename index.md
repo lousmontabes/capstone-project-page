@@ -172,6 +172,9 @@ We obtained a mean error of 1.602, meaning that our predicted coordinates were, 
 
 The R2 score of our model was 0.976, indicating a high level of codetermination between our predictors and our regression line.
 
+<img width="456" alt="Screenshot 2022-06-30 at 15 28 51" src="https://user-images.githubusercontent.com/7366498/176689556-86c130d7-acda-4397-a73e-b65538a467e5.png">
+<img width="456" alt="Screenshot 2022-06-30 at 15 29 01" src="https://user-images.githubusercontent.com/7366498/176689569-a0e5bccc-4c83-4790-ba5d-53fc4604b40f.png">
+
 #### K Nearest Neighbors Regression
 Given that we obtained satisfactory results from a simple Linear Regression, we wanted to test another model to see if these results were consistent. To this end, we chose to test using K-Nearest Neighbors Regression.
 
